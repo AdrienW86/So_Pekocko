@@ -12,9 +12,7 @@ mongoose.connect('mongodb+srv://duncan:nataurelissa@cluster0.gq8wc.mongodb.net/P
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
-  const app = express();
-
+const app = express();
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,13 +22,9 @@ app.use((req, res, next) => {
   });
 
 
-
 app.use(bodyParser.json());
 
-
-app.use('/api/auth', userRoutes);
+app.use('/api/auth/', userRoutes);
 app.use('/api/sauces', sauceRoutes);
-
-  
 
 module.exports = app;
