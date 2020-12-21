@@ -1,7 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
+const mongoose = require('mongoose');
 
+const Sauce = require('./models/Sauce');
+
+
+mongoose.connect('mongodb+srv://duncan:nataurelissa@cluster0.gq8wc.mongodb.net/Projet6?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
+  const app = express();
 
 
 app.use((req, res, next) => {
@@ -18,33 +29,23 @@ app.use(bodyParser.json());
 
   
 app.post('/api/sauces', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json({
-      message: 'Création de la sauce !'
+    delete req.body._id;
+    const sauce = new Sauce({
+      ...req.body
     });
-});
-
-
-app.use('/api/sauces', (req, res, next) => {
-    const sauce = [
-      {
-        _id: 'ObjectID',
-        userId: 'String',
-        name: 'String',
-        manufacturer: 'String',
-        description: 'String',
-        mainPepper: 'String',
-        imageUrl: 'String',
-        heat: 'Number',
-        likes: 'Number',
-        dislikes: 'Number',
-        usersLiked: 'String',
-        usersDisliked: 'String',
-      }
-      
-    ];
-    res.status(200).json(sauce);
+    sauce.save()
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .catch(error => res.status(400).json({ error }));
   });
+
+
+  app.use('/api/sauces', (req, res, next) => {
+    Sauce.find()
+      .then(sauces => res.status(200).json(sauces))
+      .catch(error => res.status(400).json({ error }));
+  });
+
+  
 
 
 
