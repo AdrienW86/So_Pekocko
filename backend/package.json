@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "so_pekocko backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrienW86/So_Pekocko.git"
+  },
+  "author": "Adrien W.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrienW86/So_Pekocko/issues"
+  },
+  "homepage": "https://github.com/AdrienW86/So_Pekocko#readme"
+}
