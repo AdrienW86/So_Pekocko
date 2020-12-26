@@ -3,6 +3,7 @@ const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
 exports.createSauce = (req, res, next) => {
+  console.log('sauce créée')
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   const sauce = new Sauce({
@@ -32,6 +33,7 @@ exports.getAllSauce = (req, res, next) => {
 };
 
 exports.modifySauce = (req, res, next) => {
+  console.log('sauce modifiée')
   const paramId =  req.params.id
   const sauceObject = req.file ?
     {
@@ -44,6 +46,7 @@ exports.modifySauce = (req, res, next) => {
 };
 
 exports.deleteSauce = (req, res, next) => {
+  console.log('sauce suprimée')
   const paramId =  req.params.id
   Sauce.findOne({ _id: paramId })
     .then(sauce => {
