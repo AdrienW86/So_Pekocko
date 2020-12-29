@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require ( 'express-session' );
-
 const mongoose = require('mongoose');
 const mongoSanitize = require('express-mongo-sanitize');
 const path = require('path');
@@ -26,19 +24,11 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use(helmet());  // Protection contre les injections SQL  source: https://helmetjs.github.io/
+app.use(helmet());           // Protection contre les injections SQL et XMS    
  
-app.set('trust proxy', 1) // Sauvegarder la session:         source: https://www.npmjs.com/package/express-session
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-}))
-
-
 app.use(bodyParser.json());
 
-app.use(mongoSanitize());
+app.use(mongoSanitize());    // Protection contre les injections dans Mongo Db
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
