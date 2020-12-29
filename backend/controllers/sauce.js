@@ -46,7 +46,7 @@ exports.modifySauce = (req, res, next) => {
 };
 
 exports.deleteSauce = (req, res, next) => {
-  console.log('sauce suprimée')
+  console.log('sauce supprimée')
   const paramId =  req.params.id
   Sauce.findOne({ _id: paramId })
     .then(sauce => {
